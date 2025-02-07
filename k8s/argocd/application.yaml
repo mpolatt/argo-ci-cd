@@ -6,8 +6,8 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: ${GITHUB_REPO_URL}
-    targetRevision: HEAD
+    repoURL: https://github.com/mpolatt/argo-ci-cd.git
+    targetRevision: main
     path: k8s/app
   destination:
     server: https://kubernetes.default.svc
