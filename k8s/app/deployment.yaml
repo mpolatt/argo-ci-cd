@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: basic-app
-        image: mertpolatace/basic-todo-api:v1
+        image: mertpolatace/basic-todo-api:v2
         ports:
         - containerPort: 3000
         resources:

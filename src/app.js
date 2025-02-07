@@ -11,7 +11,7 @@ let todos = [];
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'healthy' });
+  res.status(200).json({ status: 'healthy', version: 'v2' });
 });
 
 // GET all todos
@@ -28,12 +28,13 @@ app.get('/api/todos/:id', (req, res) => {
 
 // POST new todo
 app.post('/api/todos', (req, res) => {
-  const { title } = req.body;
+  const { title, priority } = req.body;
   if (!title) return res.status(400).json({ error: 'Title is required' });
 
   const todo = {
     id: todos.length + 1,
     title,
+    priority: priority || 'medium', // New field with default value
     completed: false,
     createdAt: new Date()
   };
@@ -47,9 +48,10 @@ app.put('/api/todos/:id', (req, res) => {
   const todo = todos.find(t => t.id === parseInt(req.params.id));
   if (!todo) return res.status(404).json({ error: 'Todo not found' });
 
-  const { title, completed } = req.body;
+  const { title, completed, priority } = req.body;
   if (title) todo.title = title;
   if (completed !== undefined) todo.completed = completed;
+  if (priority) todo.priority = priority;
 
   res.json(todo);
 });
